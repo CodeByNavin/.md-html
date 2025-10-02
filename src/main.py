@@ -1,6 +1,6 @@
 from flask import Flask, abort
-from config.htmlStyles import parseLine, htmlHead
-from config.mdConfig import get_page_config, generate_css_from_config
+from config.htmlStyles import parseLine
+from config.mdConfig import get_page_config, generate_css_from_config, get_server_config
 import os
 
 app = Flask(__name__)
@@ -55,4 +55,9 @@ def main(filename):
 
 
 if __name__ == "__main__":
-    app.run("0.0.0.0", 3000)
+    server_config = get_server_config()
+    app.run(
+        host=server_config["host"],
+        port=server_config["port"],
+        debug=server_config["debug"],
+    )

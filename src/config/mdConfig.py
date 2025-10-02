@@ -24,6 +24,7 @@ def FetchConfigs():
 
 def get_default_config():
     return {
+        "server": {"port": 3000, "host": "0.0.0.0", "debug": False},
         "pages": {
             "default": {
                 "background": "#ffffff",
@@ -59,12 +60,24 @@ def get_page_config(page_path="default"):
         )
 
 
+def get_server_config():
+    config = FetchConfigs()
+    server_config = config.get("server", {})
+    default_server = get_default_config()["server"]
+
+    return {
+        "port": server_config.get("port", default_server["port"]),
+        "host": server_config.get("host", default_server["host"]),
+        "debug": server_config.get("debug", default_server["debug"]),
+    }
+
+
 def generate_css_from_config(page_config):
     css = ""
     styles = page_config.get("styles", {})
 
     for selector, properties in styles.items():
-        css += f"{selector} {{\n"  
+        css += f"{selector} {{\n"
         for prop, value in properties.items():
             css += f"    {prop}: {value};\n"
         css += "}\n\n"

@@ -73,6 +73,11 @@ You can create different styles for different pages:
 
 ```javascript
 config = {
+    "server": {
+        "port": 3000,
+        "host": "0.0.0.0",
+        "debug": false
+    },
     "pages": {
         "default": { /* default styles */ },
         "blog": {
